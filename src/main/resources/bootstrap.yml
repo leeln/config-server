@@ -1,3 +1,5 @@
 spring:
   application:
     name: ${SERVER_NAME:api-gateway}
+#encrypt:
+#  failOnError: false

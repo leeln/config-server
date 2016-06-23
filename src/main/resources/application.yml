@@ -1,16 +1,26 @@
 server:
   port: ${PORT:8083}
 
-eureka:
-  instance:
-    hostname: ${HOSTNAME:localhost}
-    nonSecurePort: ${server.port}
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+management:
+  context-path: /admin
 
-zuul:
-  routes:
-    user-center: /orders/**
-    order-center: /users/**
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@gitlab.com:micoa/config-repo
+          basedir: build/config
+#eureka:
+#  instance:
+#    hostname: ${HOSTNAME:localhost}
+#    nonSecurePort: ${server.port}
+#  client:
+#    serviceUrl:
+#      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+
+#zuul:
+#  routes:
+#    user-center: /orders/**
+#    order-center: /users/**
 
