@@ -11,7 +11,7 @@ PORT=${PORT:-$(awk '/ENV PORT/{print $3}' Dockerfile)}
 
 IMAGE=registry.gitlab.com/micoa/${NAME}:${TAG}
 
-docker stop docker ${NAME}
+docker stop ${NAME}
 
 docker rm ${NAME}
 
