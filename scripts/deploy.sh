@@ -11,9 +11,16 @@ PORT=${PORT:-$(awk '/ENV PORT/{print $3}' Dockerfile)}
 
 IMAGE=registry.gitlab.com/micoa/${NAME}:${TAG}
 
-docker stop ${NAME}
+RUNNING=$(docker inspect --format="{{ .State.Running }}" ${NAME} 2> /dev/null)
 
-docker rm ${NAME}
+if [ $? -eq 1 ]; then
+  echo "UNKNOWN - ${NAME} does not exist."
+elif [ "$RUNNING" == "false" ]; then
+  docker rm ${NAME}
+else
+  docker stop ${NAME}
+  docker rm ${NAME}
+fi
 
 docker run -d --name ${NAME} -p ${PORT}:${PORT} ${IMAGE} .
 
