@@ -29,13 +29,13 @@ push:
   script:
     - ./scripts/push.sh
 
-deploy:
-  stage: deploy
-  image: docker:1.11.2
-  before_script:
-      - apk update
-      - apk add bash
-      - export DOCKER_HOST="tcp://106.186.112.244:2395"
-      - docker login -u liu-jerry -p lzy4361814 registry.gitlab.com
-  script:
-    - ./scripts/deploy.sh
+# deploy:
+#   stage: deploy
+#   image: docker:1.11.2
+#   before_script:
+#       - apk update
+#       - apk add bash
+#       - export DOCKER_HOST="tcp://106.186.112.244:2395"
+#       - docker login -u liu-jerry -p lzy4361814 registry.gitlab.com
+#   script:
+#     - ./scripts/deploy.sh

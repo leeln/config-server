@@ -10,9 +10,10 @@ NAME=${NAME:-$(awk '/ENV SERVER_NAME/{print $3}' Dockerfile)}
 PORT=${PORT:-$(awk '/ENV PORT/{print $3}' Dockerfile)}
 
 IMAGE=registry.gitlab.com/micoa/${NAME}:${TAG}
-
+echo "1"
 RUNNING=$(docker inspect --format="{{ .State.Running }}" ${NAME} 2> /dev/null)
-
+echo "2"
+echo "$RUNNING"
 if [ $? -eq 1 ]; then
   echo "UNKNOWN - ${NAME} does not exist."
 elif [ "$RUNNING" == "false" ]; then
