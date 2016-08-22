@@ -1,24 +1,17 @@
-FROM java:8-jre-alpine
+FROM leeln/java:jre-8
 
 ENV PROFILES dev
-ENV VERSION 0.0.1-SNAPSHOT
 
-ENV HOSTNAME localhost
-ENV SERVER_NAME config-server
-ENV PORT 8080
+COPY ssh root/.ssh
 
-ENV CONFIG_SERVER_ENABLED false
-ENV CONFIG_SERVER_URL http://config.leeln.com
+COPY build/libs/*.jar /opt/app/app.jar
 
-ENV EUREKA_SERVER_ENABLED true
-ENV EUREKA_SERVER_URL http://172.18.139.140:8761/eureka/
-
-ADD ssh root/.ssh
-
-RUN apk update && \
+RUN apk upgrade --update  && \
     apk add --no-cache openssh-client && \
-    chmod 700 -R ~/.ssh
+    chmod 700 -R root/.ssh && \
+    rm -rf /tmp/* /var/tmp/* /var/cache/*
 
-ADD build/libs/${SERVER_NAME}-${VERSION}.jar /opt/app/app.jar
+HEALTHCHECK --interval=5m --timeout=10s \
+  CMD curl -f http://localhost:8080/admin/health || exit 1
 
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${PROFILES}", "/opt/app/app.jar"]

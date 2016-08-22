@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:8083}
+  port: 8080
 
 management:
   context-path: /admin
@@ -9,8 +9,9 @@ spring:
     config:
       server:
         git:
-          uri: git@gitlab.com:micoa/config-repo
+          uri: git@github.com:leeln/config-repo.git
           basedir: build/config
+
 #eureka:
 #  instance:
 #    hostname: ${HOSTNAME:localhost}
