@@ -1,0 +1,13 @@
+version: '2'
+services:
+  web:
+    image: leeln/config-server:latest
+    env_file:
+      - ./common.env
+    ports:
+         - "8080:8080"
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://172.20.0.4:12201"
+        tag: "server-config"
