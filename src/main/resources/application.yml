@@ -10,7 +10,7 @@ spring:
       server:
         git:
           uri: git@github.com:leeln/config-repo.git
-          basedir: build/config
+#          basedir: build/config
 
 #eureka:
 #  instance:
