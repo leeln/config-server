@@ -1,27 +1,27 @@
-server:
-  port: 8080
-
-management:
-  context-path: /admin
-
-spring:
-  cloud:
-    config:
-      server:
-        git:
-          uri: git@github.com:leeln/config-repo.git
-          basedir: build/config
-
-#eureka:
-#  instance:
-#    hostname: ${HOSTNAME:localhost}
-#    nonSecurePort: ${server.port}
-#  client:
-#    serviceUrl:
-#      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
-
-#zuul:
-#  routes:
-#    user-center: /orders/**
-#    order-center: /users/**
-
+#server:
+#  port: 8080
+#
+#management:
+#  context-path: /admin
+#
+#spring:
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          uri: git@github.com:leeln/config-repo.git
+#          basedir: build/config
+#
+##eureka:
+##  instance:
+##    hostname: ${HOSTNAME:localhost}
+##    nonSecurePort: ${server.port}
+##  client:
+##    serviceUrl:
+##      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+#
+##zuul:
+##  routes:
+##    user-center: /orders/**
+##    order-center: /users/**
+#

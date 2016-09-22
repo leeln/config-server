@@ -29,8 +29,14 @@ repositories {
 dependencies {
 	compile 'org.springframework.cloud:spring-cloud-starter-eureka',
 			'org.springframework.boot:spring-boot-starter-web',
-			'org.springframework.cloud:spring-cloud-config-server',
+//			'org.springframework.cloud:spring-cloud-config-server',
 			'org.springframework.cloud:spring-cloud-starter-hystrix'
+
+	compile group: 'com.netflix.hystrix', name: 'hystrix-core', version: '1.5.5'
+	compile group: 'com.netflix.hystrix', name: 'hystrix-javanica', version: '1.5.5'
+	compile group: 'com.netflix.hystrix', name: 'hystrix-metrics-event-stream', version: '1.5.5'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '1.4.0.RELEASE'
+
 //			'org.springframework.cloud:spring-cloud-config-monitor'
 //			'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
 
@@ -39,7 +45,7 @@ dependencies {
 
 dependencyManagement {
 	imports { 
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.SR4"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.SR6"
 	}
 }
 

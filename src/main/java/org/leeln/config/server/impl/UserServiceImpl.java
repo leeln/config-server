@@ -1,8 +1,11 @@
-package org.leeln.config.server;
+package org.leeln.config.server.impl;
 
+import com.netflix.hystrix.HystrixThreadPool;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
+import org.leeln.config.server.UserService;
 import org.springframework.stereotype.Service;
 import rx.Observable;
 import rx.Subscriber;
@@ -12,14 +15,19 @@ import rx.Subscriber;
  * @version Last modified 16/9/5
  */
 @Service
+@DefaultProperties(
+        commandProperties = {
+                @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD")
+        },
+        threadPoolProperties = {
+                @HystrixProperty(name = HystrixPropertiesManager.CORE_SIZE, value = "50")
+        }
+)
 public class UserServiceImpl implements UserService {
 
 
     @Override
-    @HystrixCommand(fallbackMethod = "getABack",
-            commandProperties = {
-                    @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD")
-            })
+    @HystrixCommand(fallbackMethod = "getABack")
     public Observable<String> getA() {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -36,15 +44,13 @@ public class UserServiceImpl implements UserService {
         });
     }
 
-    public String getABack() {
+    private String getABack(Throwable throwable) {
+        System.out.println(throwable);
         return "a";
     }
 
     @Override
-    @HystrixCommand(fallbackMethod = "getBBack",
-            commandProperties = {
-                    @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD")
-            })
+    @HystrixCommand(fallbackMethod = "getBBack")
     public Observable<String> getB() {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -62,15 +68,14 @@ public class UserServiceImpl implements UserService {
         });
     }
 
-    public String getBBack() {
+    private String getBBack(Throwable throwable) {
+
+        System.out.println(throwable);
         return "b";
     }
 
     @Override
-    @HystrixCommand(fallbackMethod = "getCBack",
-            commandProperties = {
-                    @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD")
-            })
+    @HystrixCommand(fallbackMethod = "getCBack")
     public Observable<String> getC() {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -88,7 +93,41 @@ public class UserServiceImpl implements UserService {
         });
     }
 
-    public String getCBack() {
+    @Override
+    public String a() {
+        System.out.println("getA:" + Thread.currentThread().getName());
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "A";
+    }
+
+    @Override
+    public String b() {
+        System.out.println("getB:" + Thread.currentThread().getName());
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "B";
+    }
+
+    @Override
+    public String c() {
+        System.out.println("getC:" + Thread.currentThread().getName());
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "C";
+    }
+
+    private String getCBack(Throwable throwable) {
+        System.out.println(throwable);
         return "c";
     }
 

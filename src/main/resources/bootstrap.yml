@@ -1,5 +1,5 @@
-spring:
-  application:
-    name: config-server
-#encrypt:
-#  failOnError: false
+#spring:
+#  application:
+#    name: config-server
+##encrypt:
+##  failOnError: false

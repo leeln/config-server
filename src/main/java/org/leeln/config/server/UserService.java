@@ -13,4 +13,9 @@ public interface UserService {
     Observable<String> getB();
 
     Observable<String> getC();
+
+
+    String a();
+    String b();
+    String c();
 }
