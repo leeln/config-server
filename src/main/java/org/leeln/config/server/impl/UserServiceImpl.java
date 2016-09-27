@@ -16,6 +16,7 @@ import rx.Subscriber;
  */
 @Service
 @DefaultProperties(
+//        groupKey = "UserServiceImpl",
         commandProperties = {
                 @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD")
         },
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @HystrixCommand(fallbackMethod = "getABack", commandProperties = {
+//            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD"),
             @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "1000")
     })
     public Observable<String> getA() {
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @HystrixCommand(fallbackMethod = "getBBack", commandProperties = {
+//            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD"),
             @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "1000")
     })
     public Observable<String> getB() {
@@ -80,6 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @HystrixCommand(fallbackMethod = "getCBack", commandProperties = {
+//            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD"),
             @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "1000")
     })
     public Observable<String> getC() {

@@ -11,7 +11,6 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 public class ConfigServerApplication {
 
 	public static void main(String[] args) {
-		ConfigurationManager.getConfigInstance().setProperty("hystrix.threadpool.default.coreSize", "200");
 
 		SpringApplication.run(ConfigServerApplication.class, args);
 	}

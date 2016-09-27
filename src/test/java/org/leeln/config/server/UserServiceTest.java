@@ -22,9 +22,11 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
 
-    static {
-        ConfigurationManager.getConfigInstance().setProperty("hystrix.command.default.execution.isolation.strategy", "THREAD");
-    }
+//    static {
+//        ConfigurationManager.getConfigInstance().setProperty("hystrix.threadpool.default.coreSize", "200");
+//        ConfigurationManager.getConfigInstance().setProperty("hystrix.command.default.execution.isolation.strategy", "THREAD");
+//
+//    }
     @Autowired
     private UserService userService;
 
@@ -43,7 +45,7 @@ public class UserServiceTest {
                     public String call(String s, String s2, String s3) {
                         return s + s2 + s3;
                     }
-                }).toBlocking().single();
+                }).toBlocking().first();
 
         long end = System.currentTimeMillis();
 
@@ -60,29 +62,6 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getAsync() throws Exception {
-
-        long start = System.currentTimeMillis();
-
-        String c = Observable.zip(
-                userService.getA().subscribeOn(Schedulers.io()),
-                userService.getB().subscribeOn(Schedulers.io()),
-                userService.getC().subscribeOn(Schedulers.io()),
-                new Func3<String, String, String, String>() {
-                    @Override
-                    public String call(String s, String s2, String s3) {
-                        return s + s2 + s3;
-                    }
-                }).toBlocking().single();
-
-
-        long end = System.currentTimeMillis();
-
-        System.out.println(c);
-        System.out.println(end - start);
-    }
-
-    @Test
     public void getSync01() throws Exception {
         getSync();
 
@@ -91,11 +70,5 @@ public class UserServiceTest {
         getSync();
     }
 
-    @Test
-    public void getAsync01() throws Exception {
-        getAsync();
-        getAsync();
-        getAsync();
-    }
 
 }
