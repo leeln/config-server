@@ -1,5 +1,7 @@
 package org.leeln.config.server;
 
+import com.netflix.config.ConfigurationManager;
+import com.netflix.config.DynamicPropertyFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
 
+    static {
+        ConfigurationManager.getConfigInstance().setProperty("hystrix.command.default.execution.isolation.strategy", "THREAD");
+    }
     @Autowired
     private UserService userService;
 
@@ -44,6 +49,14 @@ public class UserServiceTest {
 
         System.out.println(c);
         System.out.println(end - start);
+    }
+
+    @Test
+    public void test01() throws Exception {
+        for (int i = 0; i < 10; i++) {
+            getSync();
+        }
+
     }
 
     @Test

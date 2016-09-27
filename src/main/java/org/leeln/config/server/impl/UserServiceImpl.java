@@ -27,7 +27,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @HystrixCommand(fallbackMethod = "getABack")
+    @HystrixCommand(fallbackMethod = "getABack", commandProperties = {
+            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "1000")
+    })
     public Observable<String> getA() {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -50,7 +52,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @HystrixCommand(fallbackMethod = "getBBack")
+    @HystrixCommand(fallbackMethod = "getBBack", commandProperties = {
+            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "1000")
+    })
     public Observable<String> getB() {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -75,7 +79,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @HystrixCommand(fallbackMethod = "getCBack")
+    @HystrixCommand(fallbackMethod = "getCBack", commandProperties = {
+            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "1000")
+    })
     public Observable<String> getC() {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
