@@ -7,8 +7,10 @@ node {
     }
 
     stage 'push'
-    docker.withRegistry('https://index.docker.io/v1/', 'docker-registry-login') {
+    docker.withRegistry('https://docker.repo.leeln.com', 'leeln-admin') {
         docker.build('leeln/config-server').push()
     }
 
+    stage 'deploy'
+    sh 'rancher up -s leeln -p -d -u -c'
 }

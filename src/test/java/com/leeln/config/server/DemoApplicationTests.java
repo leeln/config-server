@@ -1,4 +1,4 @@
-package org.leeln.config.server;
+package com.leeln.config.server;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

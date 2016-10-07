@@ -1,4 +1,4 @@
-package org.leeln.config.server;
+package com.leeln.config.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

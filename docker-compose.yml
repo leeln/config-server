@@ -1,0 +1,2 @@
+configServer:
+  image: docker.repo.leeln.com/leeln/config-server
