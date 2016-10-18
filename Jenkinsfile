@@ -1,7 +1,7 @@
 node {
     stage 'build'
     checkout scm
-    docker.image('leeln/java:jdk-8').inside {
+    docker.image('docker.repo.leeln.com/leeln/java:jdk-8').inside {
         sh './gradlew build'
         archive 'build/libs/*.war'
     }
