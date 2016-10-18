@@ -1,9 +1,6 @@
 server:
   port: 8080
 
-management:
-  context-path: /admin
-
 spring:
   cloud:
     config:

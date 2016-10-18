@@ -1,5 +1,13 @@
 spring:
   application:
     name: config-server
-#encrypt:
-#  failOnError: false
+
+eureka:
+  instance:
+    hostname: localhost
+    nonSecurePort: 8080
+  client:
+    serviceUrl:
+      defaultZone: http://eureka.leeln.com/eureka/
+    fetch-registry: false
+    register-with-eureka: true
