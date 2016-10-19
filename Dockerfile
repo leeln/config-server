@@ -1,6 +1,6 @@
 FROM docker.repo.leeln.com/leeln/java:jre-8
 
-ENV PROFILES default
+ENV PROFILES prod
 
 COPY build/libs/*.jar /opt/app/app.jar
 
