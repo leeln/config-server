@@ -4,7 +4,7 @@ spring:
 
 eureka:
   instance:
-    hostname: eureka.leeln.com
+    hostname: config.leeln.com
     nonSecurePort: 80
   client:
     serviceUrl:
